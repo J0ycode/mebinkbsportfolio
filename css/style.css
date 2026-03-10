@@ -11,6 +11,18 @@
     --bg-text-color: rgba(255, 255, 255, 0.03);
 
     --font-family: 'Poppins', sans-serif;
+
+    /* Fluid Typography System */
+    --fs-hero: clamp(3.5rem, 8vw, 6rem);
+    --fs-h2: clamp(2rem, 5vw, 3rem);
+    --fs-h3: clamp(1.5rem, 3vw, 2rem);
+    --fs-body: clamp(0.95rem, 1vw + 0.5rem, 1.1rem);
+    --fs-small: clamp(0.85rem, 1vw + 0.3rem, 0.95rem);
+    --fs-bg-text: clamp(6rem, 15vw, 15rem);
+
+    /* Fluid Spacing System */
+    --spacing-section: clamp(60px, 10vw, 120px);
+    --spacing-element: clamp(20px, 4vw, 40px);
 }
 
 * {
@@ -21,6 +33,7 @@
 
 html {
     scroll-behavior: smooth;
+    scroll-padding-top: 100px;
 }
 
 body {
@@ -59,8 +72,11 @@ img {
 }
 
 .btn {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     padding: 12px 30px;
+    min-height: 48px;
     border-radius: 30px;
     font-weight: 500;
     font-size: 0.9rem;
@@ -84,7 +100,7 @@ img {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 15vw;
+    font-size: var(--fs-bg-text);
     font-weight: 700;
     color: var(--bg-text-color);
     white-space: nowrap;
@@ -95,13 +111,23 @@ img {
 }
 
 .section-title {
-    font-size: 1.2rem;
+    font-size: var(--fs-h2);
+    color: var(--text-main);
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+    font-weight: 700;
+}
+
+.section-subtitle {
+    font-size: var(--fs-small);
     color: var(--accent-color);
     text-transform: uppercase;
     letter-spacing: 2px;
-    margin-bottom: 50px;
-    position: relative;
-    display: inline-block;
+    margin-bottom: var(--spacing-element);
+    display: block;
+    font-weight: 600;
 }
 
 .section-title::after {
@@ -115,8 +141,33 @@ img {
 }
 
 section {
-    padding: 100px 0;
+    padding: var(--spacing-section) 0;
     position: relative;
+    overflow-x: hidden;
+}
+
+/* Scroll Reveal Animations */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal.delay-1 {
+    transition-delay: 0.1s;
+}
+
+.reveal.delay-2 {
+    transition-delay: 0.2s;
+}
+
+.reveal.delay-3 {
+    transition-delay: 0.3s;
 }
 
 /* =========================================
@@ -234,24 +285,27 @@ section {
 }
 
 .greeting {
-    font-size: 1.5rem;
-    font-weight: 400;
+    font-size: var(--fs-body);
+    font-weight: 500;
     color: var(--accent-color);
     margin-bottom: 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .name {
-    font-size: 5.5rem;
+    font-size: var(--fs-hero);
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 20px;
+    letter-spacing: -2px;
 }
 
 .role {
-    font-size: 1.5rem;
+    font-size: var(--fs-h3);
     font-weight: 300;
     color: var(--text-muted);
-    margin-bottom: 40px;
+    margin-bottom: var(--spacing-element);
 }
 
 .hero-image {
@@ -667,15 +721,24 @@ section {
 }
 
 /* =========================================
-   MEDIA QUERIES
+   MEDIA QUERIES (PREMIUM RESPONSIVE ARCHITECTURE)
    ========================================= */
-@media (max-width: 992px) {
-    .name {
-        font-size: 4rem;
+
+/* 1. Large Desktop (1440px+) */
+@media (min-width: 1440px) {
+    .container {
+        max-width: 1320px;
     }
 
-    .hero-image {
-        width: 60%;
+    section {
+        padding: var(--spacing-section) 0;
+    }
+}
+
+/* 2. Laptop / Desktop (max-width: 1024px) */
+@media (max-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(2, 1fr);
     }
 
     .about-content {
@@ -689,15 +752,21 @@ section {
 
     .about-details .label {
         min-width: auto;
-        margin-right: 10px;
+        margin-right: 15px;
     }
 
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
+    .hero-image {
+        width: 45%;
     }
 }
 
+/* 3. Tablet (max-width: 768px) */
 @media (max-width: 768px) {
+    :root {
+        --spacing-section: 60px;
+        --spacing-element: 15px;
+    }
+
     .navbar {
         display: none;
     }
@@ -713,23 +782,126 @@ section {
     .hero {
         text-align: center;
         justify-content: center;
+        height: auto;
+        padding-top: 100px;
+        padding-bottom: 0px;
     }
 
     .hero-container {
         justify-content: center;
+        flex-direction: column;
     }
 
     .hero-content {
         max-width: 100%;
+        margin-top: 40px;
         z-index: 10;
-        margin-top: -100px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .hero-content div {
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
     .hero-image {
-        display: none;
+        display: flex;
+        width: 100%;
+        max-width: 350px;
+        margin-top: 40px;
+        justify-content: center;
     }
 
     .services-grid {
         grid-template-columns: 1fr;
+    }
+
+    /* Timeline Adjustments */
+    .timeline-section::before {
+        left: 20px;
+    }
+
+    .timeline-item {
+        padding-left: 50px;
+        margin-bottom: 30px;
+    }
+
+    .timeline-dot {
+        left: 11px;
+        width: 16px;
+        height: 16px;
+        top: 35px;
+        border-width: 2px;
+    }
+
+    .timeline-content {
+        padding: 20px;
+    }
+
+    .timeline-header {
+        flex-direction: column;
+    }
+
+    .timeline-duration {
+        text-align: left;
+        margin-top: 10px;
+    }
+
+    /* Contact Footer Adjustments */
+    .contact-grid {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact-card {
+        width: 100% !important;
+        max-width: 400px;
+    }
+
+    .contact footer {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+}
+
+/* 4. Large Mobile (max-width: 480px) & 5. Mobile (320px - 480px) */
+@media (max-width: 480px) {
+    :root {
+        --spacing-section: 50px;
+        --spacing-element: 10px;
+    }
+
+    .hero-image {
+        max-width: 280px;
+    }
+
+    .about-details {
+        grid-template-columns: 1fr;
+    }
+
+    .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .timeline-item {
+        padding-left: 40px;
+    }
+
+    .timeline-section::before {
+        left: 15px;
+    }
+
+    .timeline-dot {
+        left: 7px;
+        width: 14px;
+        height: 14px;
+    }
+
+    .section-title {
+        margin-bottom: 5px;
     }
 }
