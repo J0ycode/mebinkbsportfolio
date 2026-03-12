@@ -1,0 +1,15 @@
+# robots.txt for Mebin K B Portfolio
+# https://mebinkb.com/
+
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://mebinkb.com/sitemap.xml
+
+# Disallow admin/system paths
+Disallow: /tmp/
+Disallow: /.git/
+
+# Crawl-delay (optional, be generous to search engines)
+Crawl-delay: 5
