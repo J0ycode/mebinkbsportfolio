@@ -99,31 +99,17 @@ img {
 
 .container {
     width: 100%;
-    max-width: 1200px;
     margin: 0 auto;
     padding: 0 24px;
-    transition: max-width 0.4s ease, padding 0.4s ease;
+    transition: width 0.4s ease, padding 0.4s ease;
 }
 
-/* Adjust layout width smoothly based on desktop size */
-@media (min-width: 1366px) {
+/* Adjust layout to automatically cover exactly 80% of the screen width on desktop (1000px and up) */
+@media (min-width: 1000px) {
     .container {
-        max-width: 1280px;
-        padding: 0 32px;
-    }
-}
-
-@media (min-width: 1600px) {
-    .container {
-        max-width: 1440px;
-        padding: 0 48px;
-    }
-}
-
-@media (min-width: 1920px) {
-    .container {
-        max-width: 1640px;
-        padding: 0 64px;
+        width: 80%;
+        max-width: 1800px; /* Safety cap for extremely large monitors */
+        padding: 0; /* Removing fixed padding since 80% provides ample edge space */
     }
 }
 
