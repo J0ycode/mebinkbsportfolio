@@ -101,15 +101,23 @@ img {
     width: 100%;
     margin: 0 auto;
     padding: 0 24px;
-    transition: width 0.4s ease, padding 0.4s ease;
+    transition: width 0.4s ease, max-width 0.4s ease, padding 0.4s ease;
 }
 
-/* Adjust layout to automatically cover exactly 80% of the screen width on desktop (1000px and up) */
-@media (min-width: 1000px) {
+/* Tablet: ~92% width for better balance */
+@media (min-width: 768px) {
     .container {
-        width: 80%;
-        max-width: 1800px; /* Safety cap for extremely large monitors */
-        padding: 0; /* Removing fixed padding since 80% provides ample edge space */
+        width: 92%;
+        padding: 0;
+    }
+}
+
+/* Desktop: Premium SaaS layout covering ~85% of the screen */
+@media (min-width: 1024px) {
+    .container {
+        width: 85%;
+        max-width: 1600px; /* Scaled seamlessly up to 1600px */
+        padding: 0;
     }
 }
 
@@ -169,9 +177,9 @@ img {
 }
 
 .section-desc {
-    max-width: 600px;
-    margin: 0 auto 3rem;
-    font-size: 1.1rem;
+    max-width: 800px; /* Increased from 600px for wider layout */
+    margin: 0 auto 3.5rem;
+    font-size: 1.15rem;
 }
 
 .divider {
@@ -508,7 +516,8 @@ img {
     font-size: 1.25rem;
     color: var(--color-gray-600);
     margin-bottom: 40px;
-    max-width: 600px;
+    max-width: 750px; /* Increased from 600px for wider layout */
+    line-height: 1.6;
 }
 
 .hero-actions {
@@ -690,7 +699,7 @@ img {
 .about-container {
     display: flex;
     justify-content: center;
-    max-width: 900px;
+    max-width: 1100px; /* Increased from 900px for wider layout */
     margin: 0 auto;
 }
 
@@ -760,13 +769,8 @@ img {
 
 @media (min-width: 768px) {
     .expertise-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (min-width: 1024px) {
-    .expertise-grid {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 32px;
     }
 }
 
@@ -873,7 +877,7 @@ img {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    max-width: 1100px;
+    max-width: 1300px; /* Increased from 1100px to fill wider 85% layout */
     margin: 4rem auto 0;
 }
 
@@ -1213,7 +1217,7 @@ img {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
-    max-width: 1000px;
+    max-width: 1300px;
     margin: 0 auto;
 }
 
